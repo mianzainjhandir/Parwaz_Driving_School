@@ -197,51 +197,179 @@ class _AboutViewState extends State<AboutView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Hero Header
+            // Hero Header matching guide.png design
             Container(
               width: double.infinity,
               color: const Color(0xFFF8FAF9),
               padding: EdgeInsets.symmetric(
                 horizontal: isMobile ? 20 : 40,
-                vertical: isMobile ? 30 : 50,
+                vertical: isMobile ? 24 : 40,
               ),
               child: Center(
                 child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1000),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'ABOUT US',
-                        style: TextStyle(
-                          color: Color(0xFF4A6B6C),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                          letterSpacing: 2,
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: isMobile
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'About Us',
+                              style: TextStyle(
+                                color: Color(0xFF0F3854),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            const Text(
+                              'EMPOWERING WOMEN ON THE ROAD',
+                              style: TextStyle(
+                                color: Color(0xFF4A6B6C),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const Text(
+                              'Parwaaz Driving Institute is a women-focused driving school in Vehari, dedicated to helping women gain driving skills, confidence and independence.',
+                              style: TextStyle(
+                                color: Color(0xFF556B7A),
+                                fontSize: 14,
+                                height: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'We believe every woman deserves the freedom to move, explore and achieve her goals. Our certified female instructors provide patient, professional and supportive training in a safe environment.',
+                              style: TextStyle(
+                                color: Color(0xFF556B7A),
+                                fontSize: 14,
+                                height: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF0F3854),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                elevation: 0,
+                              ),
+                              child: const Text(
+                                'Our Mission',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                'assets/images/guide.png',
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // Left Text Content
+                            Expanded(
+                              flex: 12,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 30),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'About Us',
+                                      style: TextStyle(
+                                        color: Color(0xFF0F3854),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 40,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      'EMPOWERING WOMEN ON THE ROAD',
+                                      style: TextStyle(
+                                        color: Color(0xFF4A6B6C),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                        letterSpacing: 2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    const Text(
+                                      'Parwaaz Driving Institute is a women-focused driving school in Vehari, dedicated to helping women gain driving skills, confidence and independence.',
+                                      style: TextStyle(
+                                        color: Color(0xFF556B7A),
+                                        fontSize: 15,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 14),
+                                    const Text(
+                                      'We believe every woman deserves the freedom to move, explore and achieve her goals. Our certified female instructors provide patient, professional and supportive training in a safe environment.',
+                                      style: TextStyle(
+                                        color: Color(0xFF556B7A),
+                                        fontSize: 15,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 24),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFF0F3854),
+                                        foregroundColor: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 28,
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      child: const Text(
+                                        'Our Mission',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // Right Image
+                            Expanded(
+                              flex: 10,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.asset(
+                                  'assets/images/guide.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'Empowering Women Through Safe & Professional Driving Lessons',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: const Color(0xFF0F3854),
-                          fontWeight: FontWeight.bold,
-                          fontSize: isMobile ? 26 : 38,
-                          height: 1.2,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Parwaaz Driving Institute in Vehari is dedicated to providing high-quality, professional, and respectful driving education specifically tailored for women.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: const Color(0xFF556B7A),
-                          fontSize: isMobile ? 14 : 16,
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),
