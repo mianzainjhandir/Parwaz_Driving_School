@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'widgets/hero_section.dart';
+import 'widgets/features_section.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -207,6 +208,9 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             HeroSection(),
+            SizedBox(height: 12),
+            FeaturesSection(),
+            SizedBox(height: 30),
           ],
         ),
       ),

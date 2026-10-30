@@ -11,7 +11,7 @@ class HeroSection extends StatelessWidget {
     if (isMobile) {
       return Container(
         color: const Color(0xFFF8FAF9),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,74 +25,83 @@ class HeroSection extends StatelessWidget {
                 letterSpacing: 2,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             // Title
             const Text(
               'Learn to Drive\nwith Confidence',
               style: TextStyle(
                 color: Color(0xFF0F3854),
                 fontWeight: FontWeight.bold,
-                fontSize: 32,
+                fontSize: 28,
                 height: 1.2,
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             // Description
             const Text(
               'Professional driving lessons for women in a safe and supportive environment in Vehari.',
               style: TextStyle(
                 color: Color(0xFF556B7A),
-                fontSize: 15,
-                height: 1.5,
+                fontSize: 14,
+                height: 1.4,
               ),
             ),
-            const SizedBox(height: 24),
-            // Buttons
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
+            const SizedBox(height: 18),
+            // Buttons in a single Row for Mobile
+            Row(
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0F3854),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Book a Lesson',
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0F3854),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, size: 16),
-                    ],
+                      elevation: 0,
+                    ),
+                    child: const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Book a Lesson',
+                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                          ),
+                          SizedBox(width: 4),
+                          Icon(Icons.arrow_forward, size: 14),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFF0F3854),
-                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-                    side: const BorderSide(color: Color(0xFF0F3854)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFF0F3854),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      side: const BorderSide(color: Color(0xFF0F3854)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Explore Courses',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                    child: const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Explore Courses',
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 18),
             // Image for Mobile
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
