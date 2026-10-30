@@ -150,16 +150,6 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: const SizedBox.expand(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onWhatsAppTap,
-        backgroundColor: const Color(0xFF25D366),
-        tooltip: 'Chat on WhatsApp',
-        child: const FaIcon(
-          FontAwesomeIcons.whatsapp,
-          color: Colors.white,
-          size: 30,
-        ),
-      ),
     );
   }
 }
