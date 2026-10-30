@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'widgets/hero_section.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,13 +11,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  void _onHomeTap() {}
+  int _selectedIndex = 0;
 
-  void _onCoursesTap() {}
+  void _onHomeTap() {
+    setState(() {
+      _selectedIndex = 0;
+    });
+  }
 
-  void _onAboutTap() {}
+  void _onCoursesTap() {
+    setState(() {
+      _selectedIndex = 1;
+    });
+  }
 
-  void _onContactTap() {}
+  void _onAboutTap() {
+    setState(() {
+      _selectedIndex = 2;
+    });
+  }
+
+  void _onContactTap() {
+    setState(() {
+      _selectedIndex = 3;
+    });
+  }
 
   Future<void> _onWhatsAppTap() async {
     final Uri whatsappUrl = Uri.parse("https://wa.me/923234248524");
@@ -36,8 +54,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final bool isMobile = screenWidth < 700;
+    const Color activeColor = Colors.blue;
+    const Color inactiveColor = Colors.black87;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -57,44 +78,53 @@ class _HomeState extends State<Home> {
         title: isMobile
             ? null
             : Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextButton(
-              onPressed: _onHomeTap,
-              child: const Text(
-                'Home',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(
+                    onPressed: _onHomeTap,
+                    child: Text(
+                      'Home',
+                      style: TextStyle(
+                        color: _selectedIndex == 0 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
+                    onPressed: _onCoursesTap,
+                    child: Text(
+                      'Courses',
+                      style: TextStyle(
+                        color: _selectedIndex == 1 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 1 ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
+                    onPressed: _onAboutTap,
+                    child: Text(
+                      'About Us',
+                      style: TextStyle(
+                        color: _selectedIndex == 2 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
+                    onPressed: _onContactTap,
+                    child: Text(
+                      'Contact Us',
+                      style: TextStyle(
+                        color: _selectedIndex == 3 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(width: 16),
-            TextButton(
-              onPressed: _onCoursesTap,
-              child: const Text(
-                'Courses',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            const SizedBox(width: 16),
-            TextButton(
-              onPressed: _onAboutTap,
-              child: const Text(
-                'About Us',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            const SizedBox(width: 16),
-            TextButton(
-              onPressed: _onContactTap,
-              child: const Text(
-                'Contact Us',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
-        ),
         actions: [
           // WhatsApp icon on BOTH mobile and desktop
           IconButton(
@@ -126,22 +156,46 @@ class _HomeState extends State<Home> {
                     break;
                 }
               },
-              itemBuilder: (context) => const [
+              itemBuilder: (context) => [
                 PopupMenuItem(
                   value: 'Home',
-                  child: Text('Home'),
+                  child: Text(
+                    'Home',
+                    style: TextStyle(
+                      color: _selectedIndex == 0 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
                 ),
                 PopupMenuItem(
                   value: 'Courses',
-                  child: Text('Courses'),
+                  child: Text(
+                    'Courses',
+                    style: TextStyle(
+                      color: _selectedIndex == 1 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 1 ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
                 ),
                 PopupMenuItem(
                   value: 'About Us',
-                  child: Text('About Us'),
+                  child: Text(
+                    'About Us',
+                    style: TextStyle(
+                      color: _selectedIndex == 2 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
                 ),
                 PopupMenuItem(
                   value: 'Contact Us',
-                  child: Text('Contact Us'),
+                  child: Text(
+                    'Contact Us',
+                    style: TextStyle(
+                      color: _selectedIndex == 3 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
                 ),
               ],
             )
@@ -149,7 +203,13 @@ class _HomeState extends State<Home> {
             const SizedBox(width: 16),
         ],
       ),
-      body: const SizedBox.expand(),
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+            HeroSection(),
+          ],
+        ),
+      ),
     );
   }
 }
