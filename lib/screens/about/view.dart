@@ -13,6 +13,13 @@ class AboutView extends StatefulWidget {
 
 class _AboutViewState extends State<AboutView> {
   final int _selectedIndex = 2; // About Us is index 2
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void _onHomeTap() {
     Get.offAll(() => const Home());
@@ -28,6 +35,16 @@ class _AboutViewState extends State<AboutView> {
 
   void _onContactTap() {
     _onWhatsAppTap();
+  }
+
+  void _onMissionTap() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        350,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Future<void> _onWhatsAppTap() async {
@@ -195,6 +212,7 @@ class _AboutViewState extends State<AboutView> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             // Hero Header matching guide.png design
@@ -250,7 +268,7 @@ class _AboutViewState extends State<AboutView> {
                             ),
                             const SizedBox(height: 20),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _onMissionTap,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF0F3854),
                                 foregroundColor: Colors.white,
@@ -332,7 +350,7 @@ class _AboutViewState extends State<AboutView> {
                                     ),
                                     const SizedBox(height: 24),
                                     ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: _onMissionTap,
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xFF0F3854),
                                         foregroundColor: Colors.white,
