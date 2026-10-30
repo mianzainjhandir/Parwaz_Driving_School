@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'widgets/hero_section.dart';
 import 'widgets/features_section.dart';
+import '../about/view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,6 +32,7 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedIndex = 2;
     });
+    Get.to(() => const AboutView());
   }
 
   void _onContactTap() {
