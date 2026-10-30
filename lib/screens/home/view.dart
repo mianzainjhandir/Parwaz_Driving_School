@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,12 +19,17 @@ class _HomeState extends State<Home> {
 
   void _onContactTap() {}
 
-  void _onWhatsAppTap() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('WhatsApp link will be connected here.'),
-      ),
-    );
+  Future<void> _onWhatsAppTap() async {
+    final Uri whatsappUrl = Uri.parse("https://wa.me/923234248524");
+    if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not launch WhatsApp'),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -144,6 +150,16 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: const SizedBox.expand(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onWhatsAppTap,
+        backgroundColor: const Color(0xFF25D366),
+        tooltip: 'Chat on WhatsApp',
+        child: const FaIcon(
+          FontAwesomeIcons.whatsapp,
+          color: Colors.white,
+          size: 30,
+        ),
+      ),
     );
   }
 }
