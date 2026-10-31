@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../book_lesson/view.dart';
 import '../../courses/view.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
-  Future<void> _onBookLesson() async {
-    final Uri whatsappUrl = Uri.parse("https://wa.me/923234248524?text=Hello%20Parwaaz%20Driving%20Institute,%20I%20want%20to%20book%20a%20driving%20lesson.");
-    if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
-      // Fallback
-    }
+  void _onBookLesson() {
+    Get.to(() => const BookLessonView());
   }
 
   void _onExploreCourses() {

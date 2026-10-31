@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
+import '../../book_lesson/view.dart';
 
 class CtaBannerSection extends StatelessWidget {
   const CtaBannerSection({super.key});
 
-  Future<void> _onBookLesson(BuildContext context) async {
-    final Uri whatsappUrl = Uri.parse(
-        "https://wa.me/923234248524?text=Hello%20Parwaaz%20Driving%20Institute,%20I%20want%20to%20book%20a%20driving%20lesson.");
-    if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not launch WhatsApp'),
-          ),
-        );
-      }
-    }
+  void _onBookLesson(BuildContext context) {
+    Get.to(() => const BookLessonView());
   }
 
   @override
