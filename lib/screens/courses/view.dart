@@ -100,25 +100,25 @@ class _CoursesViewState extends State<CoursesView> {
       _QuickCourseData(
         imagePath: 'assets/images/bignear.png',
         title: 'Beginner Driving',
-        duration: '10–15 Hours',
+        duration: '7 Days Training',
         price: 'PKR 12,000',
       ),
       _QuickCourseData(
         imagePath: 'assets/images/road.png',
         title: 'Road Practice',
-        duration: '10–12 Hours',
+        duration: '7 Days Practice',
         price: 'PKR 15,000',
       ),
       _QuickCourseData(
         imagePath: 'assets/images/refresher.png',
         title: 'Refresher Course',
-        duration: '6–8 Hours',
+        duration: '7 Days Refresher',
         price: 'PKR 9,000',
       ),
       _QuickCourseData(
         imagePath: 'assets/images/advance.png',
         title: 'Advanced Driving',
-        duration: '12–15 Hours',
+        duration: '7 Days Advanced',
         price: 'PKR 18,000',
       ),
     ];
@@ -314,7 +314,7 @@ class _CoursesViewState extends State<CoursesView> {
                       ),
                       SizedBox(height: 6),
                       Text(
-                        'Choose the course that fits your needs.',
+                        'Choose the course that fits your needs. All courses are 7 days duration.',
                         style: TextStyle(
                           color: Color(0xFF556B7A),
                           fontSize: 15,

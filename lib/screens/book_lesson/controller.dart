@@ -15,11 +15,11 @@ class BookLessonController extends GetxController {
   var selectedEndDate = Rxn<DateTime>();
 
   final List<String> coursesList = [
-    'Beginner Driving',
-    'Road Practice',
-    'Refresher Course',
-    'Advanced Driving',
-    'VIP Custom Course',
+    'Beginner Driving (7 Days)',
+    'Road Practice (7 Days)',
+    'Refresher Course (7 Days)',
+    'Advanced Driving (7 Days)',
+    'VIP Custom Course (7 Days)',
   ];
 
   final List<String> timeSlots = [
@@ -57,18 +57,14 @@ class BookLessonController extends GetxController {
     );
     if (picked != null) {
       selectedStartDate.value = picked;
-      // If end date is before start date, reset end date
-      if (selectedEndDate.value != null && selectedEndDate.value!.isBefore(picked)) {
-        selectedEndDate.value = null;
-      }
+      // Automatically set default End Date to 7th day (start date + 6 days = 7 days total duration)
+      selectedEndDate.value = picked.add(const Duration(days: 6));
     }
   }
 
   void pickEndDate(BuildContext context) async {
-    final DateTime initial = selectedEndDate.value ??
-        (selectedStartDate.value?.add(const Duration(days: 14)) ??
-            DateTime.now().add(const Duration(days: 15)));
     final DateTime first = selectedStartDate.value ?? DateTime.now();
+    final DateTime initial = selectedEndDate.value ?? first.add(const Duration(days: 6));
 
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -116,6 +112,7 @@ class BookLessonController extends GetxController {
 *Full Name:* $name
 *Phone Number:* $phone
 *Selected Course:* $course
+*Course Duration:* 7 Days
 *Start Date:* $startDate
 *End Date:* $endDate
 *Preferred Time:* $time

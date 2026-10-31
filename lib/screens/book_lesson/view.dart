@@ -285,6 +285,15 @@ class _BookLessonViewState extends State<BookLessonView> {
                             ),
                           ],
                         ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'ℹ Note: All driving courses are 7 days duration. End date is automatically set to the 7th day.',
+                    style: TextStyle(
+                      color: Color(0xFF386B5A),
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                   const SizedBox(height: 20),
 
                   // Preferred Time
