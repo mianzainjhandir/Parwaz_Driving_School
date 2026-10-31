@@ -98,7 +98,7 @@ class _CoursesViewState extends State<CoursesView> {
 
     final List<_QuickCourseData> quickCourses = [
       _QuickCourseData(
-        imagePath: 'assets/images/img_2.png',
+        imagePath: 'assets/images/bignear.png',
         title: 'Beginner Driving',
         duration: '10–15 Hours',
         price: 'PKR 12,000',
@@ -110,13 +110,13 @@ class _CoursesViewState extends State<CoursesView> {
         price: 'PKR 15,000',
       ),
       _QuickCourseData(
-        imagePath: 'assets/images/img_2.png',
+        imagePath: 'assets/images/refresher.png',
         title: 'Refresher Course',
         duration: '6–8 Hours',
         price: 'PKR 9,000',
       ),
       _QuickCourseData(
-        imagePath: 'assets/images/guide.png',
+        imagePath: 'assets/images/advance.png',
         title: 'Advanced Driving',
         duration: '12–15 Hours',
         price: 'PKR 18,000',
