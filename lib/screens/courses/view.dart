@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,46 @@ class CoursesView extends StatefulWidget {
 
 class _CoursesViewState extends State<CoursesView> {
   final int _selectedIndex = 1; // Courses is index 1
+  final ScrollController _horizontalScrollController = ScrollController();
+  Timer? _autoScrollTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    _autoScrollTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_horizontalScrollController.hasClients) {
+        final double maxScroll =
+            _horizontalScrollController.position.maxScrollExtent;
+        final double currentScroll = _horizontalScrollController.offset;
+        final double targetScroll = currentScroll + 340.0;
+
+        if (currentScroll >= maxScroll - 10) {
+          _horizontalScrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeOut,
+          );
+        } else {
+          _horizontalScrollController.animateTo(
+            targetScroll > maxScroll ? maxScroll : targetScroll,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _autoScrollTimer?.cancel();
+    _horizontalScrollController.dispose();
+    super.dispose();
+  }
 
   void _onHomeTap() {
     Get.offAll(() => const Home());
@@ -55,6 +96,33 @@ class _CoursesViewState extends State<CoursesView> {
     const Color activeColor = Colors.blue;
     const Color inactiveColor = Colors.black87;
 
+    final List<_QuickCourseData> quickCourses = [
+      _QuickCourseData(
+        imagePath: 'assets/images/img_2.png',
+        title: 'Beginner Driving',
+        duration: '10–15 Hours',
+        price: 'PKR 12,000',
+      ),
+      _QuickCourseData(
+        imagePath: 'assets/images/road.png',
+        title: 'Road Practice',
+        duration: '10–12 Hours',
+        price: 'PKR 15,000',
+      ),
+      _QuickCourseData(
+        imagePath: 'assets/images/img_2.png',
+        title: 'Refresher Course',
+        duration: '6–8 Hours',
+        price: 'PKR 9,000',
+      ),
+      _QuickCourseData(
+        imagePath: 'assets/images/guide.png',
+        title: 'Advanced Driving',
+        duration: '12–15 Hours',
+        price: 'PKR 18,000',
+      ),
+    ];
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -82,8 +150,11 @@ class _CoursesViewState extends State<CoursesView> {
                     child: Text(
                       'Home',
                       style: TextStyle(
-                        color: _selectedIndex == 0 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                        color:
+                            _selectedIndex == 0 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 0
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -93,8 +164,11 @@ class _CoursesViewState extends State<CoursesView> {
                     child: Text(
                       'Courses',
                       style: TextStyle(
-                        color: _selectedIndex == 1 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 1 ? FontWeight.bold : FontWeight.normal,
+                        color:
+                            _selectedIndex == 1 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 1
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -104,8 +178,11 @@ class _CoursesViewState extends State<CoursesView> {
                     child: Text(
                       'About Us',
                       style: TextStyle(
-                        color: _selectedIndex == 2 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+                        color:
+                            _selectedIndex == 2 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 2
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -115,8 +192,11 @@ class _CoursesViewState extends State<CoursesView> {
                     child: Text(
                       'Contact Us',
                       style: TextStyle(
-                        color: _selectedIndex == 3 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                        color:
+                            _selectedIndex == 3 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 3
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -158,7 +238,9 @@ class _CoursesViewState extends State<CoursesView> {
                     'Home',
                     style: TextStyle(
                       color: _selectedIndex == 0 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: _selectedIndex == 0
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -168,7 +250,9 @@ class _CoursesViewState extends State<CoursesView> {
                     'Courses',
                     style: TextStyle(
                       color: _selectedIndex == 1 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 1 ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: _selectedIndex == 1
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -178,7 +262,9 @@ class _CoursesViewState extends State<CoursesView> {
                     'About Us',
                     style: TextStyle(
                       color: _selectedIndex == 2 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: _selectedIndex == 2
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -188,7 +274,9 @@ class _CoursesViewState extends State<CoursesView> {
                     'Contact Us',
                     style: TextStyle(
                       color: _selectedIndex == 3 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: _selectedIndex == 3
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -200,6 +288,7 @@ class _CoursesViewState extends State<CoursesView> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header Section
             Container(
@@ -207,28 +296,28 @@ class _CoursesViewState extends State<CoursesView> {
               color: const Color(0xFFF8FAF9),
               padding: EdgeInsets.symmetric(
                 horizontal: isMobile ? 20 : 40,
-                vertical: isMobile ? 24 : 40,
+                vertical: isMobile ? 24 : 36,
               ),
               child: Center(
                 child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1000),
-                  child: Column(
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Our Driving Courses',
                         style: TextStyle(
                           color: Color(0xFF0F3854),
                           fontWeight: FontWeight.bold,
-                          fontSize: 34,
+                          fontSize: 32,
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
+                      SizedBox(height: 6),
+                      Text(
                         'Choose the course that fits your needs.',
                         style: TextStyle(
                           color: Color(0xFF556B7A),
-                          fontSize: 16,
+                          fontSize: 15,
                         ),
                       ),
                     ],
@@ -237,62 +326,221 @@ class _CoursesViewState extends State<CoursesView> {
               ),
             ),
 
-            // Courses Grid
-            Padding(
+            const SizedBox(height: 20),
+
+            // Horizontal Auto-Scrolling Row Section
+            Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                height: 330,
+                child: ListView.builder(
+                  controller: _horizontalScrollController,
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: quickCourses.length,
+                  itemBuilder: (context, index) {
+                    final course = quickCourses[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: _buildHorizontalCourseCard(
+                        imagePath: course.imagePath,
+                        title: course.title,
+                        duration: course.duration,
+                        price: course.price,
+                        onTap: () => _onWhatsAppTap(
+                          courseName: course.title,
+                          price: course.price,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            // Section 2 Header: Detailed Programs
+            Container(
+              width: double.infinity,
+              color: const Color(0xFFF8FAF9),
               padding: EdgeInsets.symmetric(
-                horizontal: isMobile ? 16 : 40,
-                vertical: 30,
+                horizontal: isMobile ? 20 : 40,
+                vertical: isMobile ? 24 : 36,
               ),
               child: Center(
                 child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1040),
-                  child: Wrap(
-                    spacing: 24,
-                    runSpacing: 24,
-                    alignment: WrapAlignment.center,
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildGridCourseCard(
-                        isMobile: isMobile,
-                        imagePath: 'assets/images/img_2.png',
-                        title: 'Beginner Driving',
-                        duration: '10–15 Hours',
-                        price: 'PKR 12,000',
-                        onTap: () => _onWhatsAppTap(
-                          courseName: 'Beginner Driving',
-                          price: 'PKR 12,000',
+                      Text(
+                        'EXPLORE DETAILED PROGRAMS',
+                        style: TextStyle(
+                          color: Color(0xFF4A6B6C),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          letterSpacing: 2,
                         ),
                       ),
-                      _buildGridCourseCard(
-                        isMobile: isMobile,
-                        imagePath: 'assets/images/guide.png',
-                        title: 'Road Practice',
-                        duration: '10–12 Hours',
-                        price: 'PKR 15,000',
-                        onTap: () => _onWhatsAppTap(
-                          courseName: 'Road Practice',
-                          price: 'PKR 15,000',
+                      SizedBox(height: 8),
+                      Text(
+                        'Full Course Curriculum & Features',
+                        style: TextStyle(
+                          color: Color(0xFF0F3854),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
                         ),
                       ),
-                      _buildGridCourseCard(
-                        isMobile: isMobile,
-                        imagePath: 'assets/images/img_2.png',
-                        title: 'Refresher Course',
-                        duration: '6–8 Hours',
-                        price: 'PKR 9,000',
-                        onTap: () => _onWhatsAppTap(
-                          courseName: 'Refresher Course',
-                          price: 'PKR 9,000',
+                      SizedBox(height: 6),
+                      Text(
+                        'Detailed breakdown of our training courses taught by certified female instructors.',
+                        style: TextStyle(
+                          color: Color(0xFF556B7A),
+                          fontSize: 15,
                         ),
                       ),
-                      _buildGridCourseCard(
-                        isMobile: isMobile,
-                        imagePath: 'assets/images/guide.png',
-                        title: 'Advanced Driving',
-                        duration: '12–15 Hours',
-                        price: 'PKR 18,000',
-                        onTap: () => _onWhatsAppTap(
-                          courseName: 'Advanced Driving',
-                          price: 'PKR 18,000',
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // Detailed Courses Section (Original Detailed Cards)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 20 : 40,
+                vertical: 36,
+              ),
+              child: Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: Column(
+                    children: [
+                      Wrap(
+                        spacing: 24,
+                        runSpacing: 24,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _buildDetailedCourseCard(
+                            isMobile: isMobile,
+                            title: 'Beginner Driving Course',
+                            duration: '2 to 4 Weeks',
+                            badgeText: 'Most Popular',
+                            badgeColor: const Color(0xFF0F3854),
+                            description:
+                                'Ideal for absolute beginners with no prior driving experience. Learn basic controls to confident solo driving.',
+                            features: const [
+                              'Basic car controls & steering practice',
+                              'Gear shifting & clutch control',
+                              'Traffic rules & road signs education',
+                              'Parallel & reverse parking training',
+                              '1-on-1 Female instructor guidance',
+                            ],
+                            onEnroll: () => _onWhatsAppTap(
+                              courseName: 'Beginner Driving Course',
+                            ),
+                          ),
+                          _buildDetailedCourseCard(
+                            isMobile: isMobile,
+                            title: 'Refresher & Confidence Course',
+                            duration: '1 to 2 Weeks',
+                            badgeText: 'Skill Booster',
+                            badgeColor: const Color(0xFF2A4D45),
+                            description:
+                                'Perfect for learners who know basic driving but lack confidence on busy roads or heavy traffic areas in Vehari.',
+                            features: const [
+                              'Main road & city traffic driving practice',
+                              'Overcoming driving fear & anxiety',
+                              'Narrow street & market driving',
+                              'Proper braking & hill start control',
+                              'Patient & supportive female mentor',
+                            ],
+                            onEnroll: () => _onWhatsAppTap(
+                              courseName: 'Refresher Course',
+                            ),
+                          ),
+                          _buildDetailedCourseCard(
+                            isMobile: isMobile,
+                            title: 'Fast-Track / VIP Course',
+                            duration: 'Flexible Schedule',
+                            badgeText: 'Customized',
+                            badgeColor: const Color(0xFF386B5A),
+                            description:
+                                'Customized fast-track course with flexible morning, afternoon, or evening slots according to your busy schedule.',
+                            features: const [
+                              'Flexible time slot selection',
+                              'Fast-track intensive training',
+                              'Comprehensive license test preparation',
+                              'Pickup & drop options available',
+                              'Dedicated certified female instructor',
+                            ],
+                            onEnroll: () => _onWhatsAppTap(
+                              courseName: 'Fast-Track VIP Course',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+
+                      // Contact Banner
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF1F5F4),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: const Color(0xFFD5E0DC)),
+                        ),
+                        padding: const EdgeInsets.all(28),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Need help choosing the right course?',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF0F3854),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Send us a message on WhatsApp. Our team will guide you on course schedules, fees, and class availability.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF556B7A),
+                                fontSize: 14,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton.icon(
+                              onPressed: () => _onWhatsAppTap(),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF25D366),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                elevation: 0,
+                              ),
+                              icon: const FaIcon(
+                                FontAwesomeIcons.whatsapp,
+                                size: 20,
+                              ),
+                              label: const Text(
+                                'Inquire on WhatsApp',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -306,8 +554,7 @@ class _CoursesViewState extends State<CoursesView> {
     );
   }
 
-  Widget _buildGridCourseCard({
-    required bool isMobile,
+  Widget _buildHorizontalCourseCard({
     required String imagePath,
     required String title,
     required String duration,
@@ -315,7 +562,7 @@ class _CoursesViewState extends State<CoursesView> {
     required VoidCallback onTap,
   }) {
     return Container(
-      width: isMobile ? double.infinity : 480,
+      width: 310,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -331,60 +578,59 @@ class _CoursesViewState extends State<CoursesView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Top Image
+          // Image
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(16)),
+            child: SizedBox(
+              height: 150,
+              width: double.infinity,
               child: Image.asset(
                 imagePath,
-                width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Title
                 Text(
                   title,
                   style: const TextStyle(
                     color: Color(0xFF0F3854),
                     fontWeight: FontWeight.bold,
-                    fontSize: 22,
+                    fontSize: 18,
                   ),
                 ),
-                const SizedBox(height: 8),
-                // Duration with Clock Icon
+                const SizedBox(height: 6),
                 Row(
                   children: [
                     const Icon(
                       Icons.access_time_rounded,
-                      size: 18,
+                      size: 16,
                       color: Color(0xFF627B77),
                     ),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 4),
                     Text(
                       duration,
                       style: const TextStyle(
                         color: Color(0xFF627B77),
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                // Price Pill Container / Button
+                const SizedBox(height: 14),
                 InkWell(
                   onTap: onTap,
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                     decoration: BoxDecoration(
                       color: const Color(0xFFECF2EF),
                       borderRadius: BorderRadius.circular(10),
@@ -397,23 +643,23 @@ class _CoursesViewState extends State<CoursesView> {
                           style: const TextStyle(
                             color: Color(0xFF0F3854),
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 15,
                           ),
                         ),
                         const Row(
                           children: [
                             Text(
-                              'Inquire / Register',
+                              'Inquire',
                               style: TextStyle(
                                 color: Color(0xFF2A4D45),
                                 fontWeight: FontWeight.w600,
-                                fontSize: 13,
+                                fontSize: 12,
                               ),
                             ),
-                            SizedBox(width: 6),
+                            SizedBox(width: 4),
                             FaIcon(
                               FontAwesomeIcons.whatsapp,
-                              size: 16,
+                              size: 14,
                               color: Color(0xFF25D366),
                             ),
                           ],
@@ -429,4 +675,162 @@ class _CoursesViewState extends State<CoursesView> {
       ),
     );
   }
+
+  Widget _buildDetailedCourseCard({
+    required bool isMobile,
+    required String title,
+    required String duration,
+    required String badgeText,
+    required Color badgeColor,
+    required String description,
+    required List<String> features,
+    required VoidCallback onEnroll,
+  }) {
+    return Container(
+      width: isMobile ? double.infinity : 340,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAF9),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFE2ECE9)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: badgeColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  badgeText,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.timer_outlined,
+                    size: 16,
+                    color: Color(0xFF556B7A),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    duration,
+                    style: const TextStyle(
+                      color: Color(0xFF556B7A),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFF0F3854),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            description,
+            style: const TextStyle(
+              color: Color(0xFF556B7A),
+              fontSize: 13,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 18),
+          const Divider(color: Color(0xFFE2ECE9)),
+          const SizedBox(height: 12),
+          Column(
+            children: features
+                .map(
+                  (feature) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.check_circle_outline_rounded,
+                          size: 18,
+                          color: Color(0xFF2A4D45),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            feature,
+                            style: const TextStyle(
+                              color: Color(0xFF334A52),
+                              fontSize: 13,
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: onEnroll,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF0F3854),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 0,
+              ),
+              icon: const FaIcon(
+                FontAwesomeIcons.whatsapp,
+                size: 18,
+              ),
+              label: const Text(
+                'Enroll Now',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuickCourseData {
+  final String imagePath;
+  final String title;
+  final String duration;
+  final String price;
+
+  _QuickCourseData({
+    required this.imagePath,
+    required this.title,
+    required this.duration,
+    required this.price,
+  });
 }
