@@ -11,7 +11,8 @@ class BookLessonController extends GetxController {
 
   var selectedCourse = RxnString();
   var selectedTime = RxnString();
-  var selectedDate = Rxn<DateTime>();
+  var selectedStartDate = Rxn<DateTime>();
+  var selectedEndDate = Rxn<DateTime>();
 
   final List<String> coursesList = [
     'Beginner Driving',
@@ -35,12 +36,12 @@ class BookLessonController extends GetxController {
     super.onClose();
   }
 
-  void pickDate(BuildContext context) async {
+  void pickStartDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate.value ?? DateTime.now().add(const Duration(days: 1)),
+      initialDate: selectedStartDate.value ?? DateTime.now().add(const Duration(days: 1)),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 90)),
+      lastDate: DateTime.now().add(const Duration(days: 180)),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -55,7 +56,40 @@ class BookLessonController extends GetxController {
       },
     );
     if (picked != null) {
-      selectedDate.value = picked;
+      selectedStartDate.value = picked;
+      // If end date is before start date, reset end date
+      if (selectedEndDate.value != null && selectedEndDate.value!.isBefore(picked)) {
+        selectedEndDate.value = null;
+      }
+    }
+  }
+
+  void pickEndDate(BuildContext context) async {
+    final DateTime initial = selectedEndDate.value ??
+        (selectedStartDate.value?.add(const Duration(days: 14)) ??
+            DateTime.now().add(const Duration(days: 15)));
+    final DateTime first = selectedStartDate.value ?? DateTime.now();
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initial.isBefore(first) ? first : initial,
+      firstDate: first,
+      lastDate: DateTime.now().add(const Duration(days: 180)),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF0F3854),
+              onPrimary: Colors.white,
+              onSurface: Color(0xFF0F3854),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      selectedEndDate.value = picked;
     }
   }
 
@@ -67,8 +101,11 @@ class BookLessonController extends GetxController {
     final String name = nameController.text.trim();
     final String phone = phoneController.text.trim();
     final String course = selectedCourse.value ?? 'Not specified';
-    final String date = selectedDate.value != null
-        ? "${selectedDate.value!.day}/${selectedDate.value!.month}/${selectedDate.value!.year}"
+    final String startDate = selectedStartDate.value != null
+        ? "${selectedStartDate.value!.day}/${selectedStartDate.value!.month}/${selectedStartDate.value!.year}"
+        : 'Not specified';
+    final String endDate = selectedEndDate.value != null
+        ? "${selectedEndDate.value!.day}/${selectedEndDate.value!.month}/${selectedEndDate.value!.year}"
         : 'Not specified';
     final String time = selectedTime.value ?? 'Not specified';
     final String additionalMsg = messageController.text.trim();
@@ -79,7 +116,8 @@ class BookLessonController extends GetxController {
 *Full Name:* $name
 *Phone Number:* $phone
 *Selected Course:* $course
-*Preferred Date:* $date
+*Start Date:* $startDate
+*End Date:* $endDate
 *Preferred Time:* $time
 ${additionalMsg.isNotEmpty ? "*Additional Message:* $additionalMsg" : ""}
 -----------------------------

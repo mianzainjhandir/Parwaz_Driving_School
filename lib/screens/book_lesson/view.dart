@@ -249,34 +249,42 @@ class _BookLessonViewState extends State<BookLessonView> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Preferred Date
-                  _buildLabel('Preferred Date'),
-                  Obx(
-                    () => InkWell(
-                      onTap: () => controller.pickDate(context),
-                      child: InputDecorator(
-                        decoration: _buildInputDecoration(
-                          'dd / mm / yyyy',
-                          suffixIcon: const Icon(
-                            Icons.calendar_today_outlined,
-                            size: 20,
-                            color: Color(0xFF556B7A),
-                          ),
+                  // Start Date & End Date
+                  isMobile
+                      ? Column(
+                          children: [
+                            _buildDateField(
+                              label: 'Start Date',
+                              getValue: () => controller.selectedStartDate.value,
+                              onTap: () => controller.pickStartDate(context),
+                            ),
+                            const SizedBox(height: 20),
+                            _buildDateField(
+                              label: 'End Date',
+                              getValue: () => controller.selectedEndDate.value,
+                              onTap: () => controller.pickEndDate(context),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Expanded(
+                              child: _buildDateField(
+                                label: 'Start Date',
+                                getValue: () => controller.selectedStartDate.value,
+                                onTap: () => controller.pickStartDate(context),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildDateField(
+                                label: 'End Date',
+                                getValue: () => controller.selectedEndDate.value,
+                                onTap: () => controller.pickEndDate(context),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          controller.selectedDate.value != null
-                              ? "${controller.selectedDate.value!.day.toString().padLeft(2, '0')} / ${controller.selectedDate.value!.month.toString().padLeft(2, '0')} / ${controller.selectedDate.value!.year}"
-                              : 'dd / mm / yyyy',
-                          style: TextStyle(
-                            color: controller.selectedDate.value != null
-                                ? const Color(0xFF0F3854)
-                                : const Color(0xFF94A3B8),
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 20),
 
                   // Preferred Time
@@ -384,6 +392,46 @@ class _BookLessonViewState extends State<BookLessonView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildDateField({
+    required String label,
+    required DateTime? Function() getValue,
+    required VoidCallback onTap,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildLabel(label),
+        Obx(() {
+          final value = getValue();
+          return InkWell(
+            onTap: onTap,
+            child: InputDecorator(
+              decoration: _buildInputDecoration(
+                'dd / mm / yyyy',
+                suffixIcon: const Icon(
+                  Icons.calendar_today_outlined,
+                  size: 18,
+                  color: Color(0xFF556B7A),
+                ),
+              ),
+              child: Text(
+                value != null
+                    ? "${value.day.toString().padLeft(2, '0')} / ${value.month.toString().padLeft(2, '0')} / ${value.year}"
+                    : 'dd / mm / yyyy',
+                style: TextStyle(
+                  color: value != null
+                      ? const Color(0xFF0F3854)
+                      : const Color(0xFF94A3B8),
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          );
+        }),
+      ],
     );
   }
 
