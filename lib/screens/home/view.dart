@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'widgets/hero_section.dart';
 import 'widgets/features_section.dart';
 import '../about/view.dart';
+import '../courses/view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedIndex = 1;
     });
+    Get.to(() => const CoursesView());
   }
 
   void _onAboutTap() {

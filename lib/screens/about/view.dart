@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../home/view.dart';
+import '../courses/view.dart';
 
 class AboutView extends StatefulWidget {
   const AboutView({super.key});
@@ -26,7 +27,7 @@ class _AboutViewState extends State<AboutView> {
   }
 
   void _onCoursesTap() {
-    Get.offAll(() => const Home());
+    Get.offAll(() => const CoursesView());
   }
 
   void _onAboutTap() {
