@@ -301,13 +301,13 @@ class _BookLessonViewState extends State<BookLessonView> {
                   const SizedBox(height: 20),
 
                   // Preferred Time
-                  _buildLabel('Preferred Time'),
+                  _buildLabel('Preferred Time (5:00 AM - 5:00 PM) *'),
                   Obx(
                     () => DropdownButtonFormField<String>(
                       isExpanded: true,
                       initialValue: controller.selectedTime.value,
                       hint: const Text(
-                        'Select Time',
+                        'Select 1-Hour Slot',
                         style: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
                       ),
                       items: controller.timeSlots
@@ -324,7 +324,18 @@ class _BookLessonViewState extends State<BookLessonView> {
                       onChanged: (val) {
                         controller.selectedTime.value = val;
                       },
-                      decoration: _buildInputDecoration('Select Time'),
+                      decoration: _buildInputDecoration(
+                        'Select 1-Hour Slot',
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.access_time_outlined,
+                            size: 20,
+                            color: Color(0xFF556B7A),
+                          ),
+                          tooltip: 'Pick custom time between 5 AM & 5 PM',
+                          onPressed: () => controller.pickCustomTime(context),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
