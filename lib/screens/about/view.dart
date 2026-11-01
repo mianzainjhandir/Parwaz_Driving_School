@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../home/view.dart';
 import '../courses/view.dart';
+import '../reviews/view.dart';
 
 class AboutView extends StatefulWidget {
   const AboutView({super.key});
@@ -32,6 +33,10 @@ class _AboutViewState extends State<AboutView> {
 
   void _onAboutTap() {
     // Already on About Us
+  }
+
+  void _onReviewsTap() {
+    Get.offAll(() => const ReviewsView());
   }
 
   void _onContactTap() {
@@ -124,12 +129,23 @@ class _AboutViewState extends State<AboutView> {
                   ),
                   const SizedBox(width: 16),
                   TextButton(
+                    onPressed: _onReviewsTap,
+                    child: const Text(
+                      'Reviews',
+                      style: TextStyle(
+                        color: inactiveColor,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
                     onPressed: _onContactTap,
-                    child: Text(
+                    child: const Text(
                       'Contact Us',
                       style: TextStyle(
-                        color: _selectedIndex == 3 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                        color: inactiveColor,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -160,6 +176,9 @@ class _AboutViewState extends State<AboutView> {
                   case 'About Us':
                     _onAboutTap();
                     break;
+                  case 'Reviews':
+                    _onReviewsTap();
+                    break;
                   case 'Contact Us':
                     _onContactTap();
                     break;
@@ -172,7 +191,6 @@ class _AboutViewState extends State<AboutView> {
                     'Home',
                     style: TextStyle(
                       color: _selectedIndex == 0 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 0 ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -182,7 +200,6 @@ class _AboutViewState extends State<AboutView> {
                     'Courses',
                     style: TextStyle(
                       color: _selectedIndex == 1 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 1 ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -192,19 +209,17 @@ class _AboutViewState extends State<AboutView> {
                     'About Us',
                     style: TextStyle(
                       color: _selectedIndex == 2 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 2 ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
+                  value: 'Reviews',
+                  child: Text('Reviews'),
+                ),
+                const PopupMenuItem(
                   value: 'Contact Us',
-                  child: Text(
-                    'Contact Us',
-                    style: TextStyle(
-                      color: _selectedIndex == 3 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
-                    ),
-                  ),
+                  child: Text('Contact Us'),
                 ),
               ],
             )

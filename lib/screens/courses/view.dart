@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../about/view.dart';
 import '../home/view.dart';
+import '../reviews/view.dart';
 
 class CoursesView extends StatefulWidget {
   const CoursesView({super.key});
@@ -66,6 +67,10 @@ class _CoursesViewState extends State<CoursesView> {
 
   void _onAboutTap() {
     Get.offAll(() => const AboutView());
+  }
+
+  void _onReviewsTap() {
+    Get.offAll(() => const ReviewsView());
   }
 
   void _onContactTap() {
@@ -188,15 +193,23 @@ class _CoursesViewState extends State<CoursesView> {
                   ),
                   const SizedBox(width: 16),
                   TextButton(
+                    onPressed: _onReviewsTap,
+                    child: const Text(
+                      'Reviews',
+                      style: TextStyle(
+                        color: inactiveColor,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
                     onPressed: _onContactTap,
-                    child: Text(
+                    child: const Text(
                       'Contact Us',
                       style: TextStyle(
-                        color:
-                            _selectedIndex == 3 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 3
-                            ? FontWeight.bold
-                            : FontWeight.normal,
+                        color: inactiveColor,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
@@ -226,6 +239,9 @@ class _CoursesViewState extends State<CoursesView> {
                   case 'About Us':
                     _onAboutTap();
                     break;
+                  case 'Reviews':
+                    _onReviewsTap();
+                    break;
                   case 'Contact Us':
                     _onContactTap();
                     break;
@@ -238,9 +254,6 @@ class _CoursesViewState extends State<CoursesView> {
                     'Home',
                     style: TextStyle(
                       color: _selectedIndex == 0 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 0
-                          ? FontWeight.bold
-                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -250,9 +263,7 @@ class _CoursesViewState extends State<CoursesView> {
                     'Courses',
                     style: TextStyle(
                       color: _selectedIndex == 1 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 1
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -262,23 +273,16 @@ class _CoursesViewState extends State<CoursesView> {
                     'About Us',
                     style: TextStyle(
                       color: _selectedIndex == 2 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 2
-                          ? FontWeight.bold
-                          : FontWeight.normal,
                     ),
                   ),
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
+                  value: 'Reviews',
+                  child: Text('Reviews'),
+                ),
+                const PopupMenuItem(
                   value: 'Contact Us',
-                  child: Text(
-                    'Contact Us',
-                    style: TextStyle(
-                      color: _selectedIndex == 3 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 3
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                    ),
-                  ),
+                  child: Text('Contact Us'),
                 ),
               ],
             )

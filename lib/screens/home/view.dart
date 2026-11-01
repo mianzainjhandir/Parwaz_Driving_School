@@ -8,6 +8,7 @@ import 'widgets/courses_section.dart';
 import 'widgets/cta_banner_section.dart';
 import '../about/view.dart';
 import '../courses/view.dart';
+import '../reviews/view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -39,10 +40,18 @@ class _HomeState extends State<Home> {
     Get.to(() => const AboutView());
   }
 
-  void _onContactTap() {
+  void _onReviewsTap() {
     setState(() {
       _selectedIndex = 3;
     });
+    Get.to(() => const ReviewsView());
+  }
+
+  void _onContactTap() {
+    setState(() {
+      _selectedIndex = 4;
+    });
+    _onWhatsAppTap();
   }
 
   Future<void> _onWhatsAppTap() async {
@@ -122,12 +131,23 @@ class _HomeState extends State<Home> {
                   ),
                   const SizedBox(width: 16),
                   TextButton(
+                    onPressed: _onReviewsTap,
+                    child: Text(
+                      'Reviews',
+                      style: TextStyle(
+                        color: _selectedIndex == 3 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
                     onPressed: _onContactTap,
                     child: Text(
                       'Contact Us',
                       style: TextStyle(
-                        color: _selectedIndex == 3 ? activeColor : inactiveColor,
-                        fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                        color: _selectedIndex == 4 ? activeColor : inactiveColor,
+                        fontWeight: _selectedIndex == 4 ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -158,6 +178,9 @@ class _HomeState extends State<Home> {
                     break;
                   case 'About Us':
                     _onAboutTap();
+                    break;
+                  case 'Reviews':
+                    _onReviewsTap();
                     break;
                   case 'Contact Us':
                     _onContactTap();
@@ -196,12 +219,22 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 PopupMenuItem(
+                  value: 'Reviews',
+                  child: Text(
+                    'Reviews',
+                    style: TextStyle(
+                      color: _selectedIndex == 3 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
                   value: 'Contact Us',
                   child: Text(
                     'Contact Us',
                     style: TextStyle(
-                      color: _selectedIndex == 3 ? activeColor : Colors.black,
-                      fontWeight: _selectedIndex == 3 ? FontWeight.bold : FontWeight.normal,
+                      color: _selectedIndex == 4 ? activeColor : Colors.black,
+                      fontWeight: _selectedIndex == 4 ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ),

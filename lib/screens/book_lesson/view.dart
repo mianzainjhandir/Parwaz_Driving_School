@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../about/view.dart';
 import '../courses/view.dart';
 import '../home/view.dart';
+import '../reviews/view.dart';
 import 'controller.dart';
 
 class BookLessonView extends StatefulWidget {
@@ -26,6 +27,10 @@ class _BookLessonViewState extends State<BookLessonView> {
 
   void _onAboutTap() {
     Get.offAll(() => const AboutView());
+  }
+
+  void _onReviewsTap() {
+    Get.offAll(() => const ReviewsView());
   }
 
   void _onContactTap() {
@@ -93,6 +98,17 @@ class _BookLessonViewState extends State<BookLessonView> {
                   ),
                   const SizedBox(width: 16),
                   TextButton(
+                    onPressed: _onReviewsTap,
+                    child: const Text(
+                      'Reviews',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
                     onPressed: _onContactTap,
                     child: const Text(
                       'Contact Us',
@@ -128,6 +144,9 @@ class _BookLessonViewState extends State<BookLessonView> {
                   case 'About Us':
                     _onAboutTap();
                     break;
+                  case 'Reviews':
+                    _onReviewsTap();
+                    break;
                   case 'Contact Us':
                     _onContactTap();
                     break;
@@ -137,6 +156,7 @@ class _BookLessonViewState extends State<BookLessonView> {
                 PopupMenuItem(value: 'Home', child: Text('Home')),
                 PopupMenuItem(value: 'Courses', child: Text('Courses')),
                 PopupMenuItem(value: 'About Us', child: Text('About Us')),
+                PopupMenuItem(value: 'Reviews', child: Text('Reviews')),
                 PopupMenuItem(value: 'Contact Us', child: Text('Contact Us')),
               ],
             )
