@@ -222,6 +222,7 @@ class _BookLessonViewState extends State<BookLessonView> {
                   _buildLabel('Course *'),
                   Obx(
                     () => DropdownButtonFormField<String>(
+                      isExpanded: true,
                       initialValue: controller.selectedCourse.value,
                       hint: const Text(
                         'Select Course',
@@ -231,7 +232,10 @@ class _BookLessonViewState extends State<BookLessonView> {
                           .map(
                             (course) => DropdownMenuItem(
                               value: course,
-                              child: Text(course),
+                              child: Text(
+                                course,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           )
                           .toList(),
@@ -300,6 +304,7 @@ class _BookLessonViewState extends State<BookLessonView> {
                   _buildLabel('Preferred Time'),
                   Obx(
                     () => DropdownButtonFormField<String>(
+                      isExpanded: true,
                       initialValue: controller.selectedTime.value,
                       hint: const Text(
                         'Select Time',
@@ -309,7 +314,10 @@ class _BookLessonViewState extends State<BookLessonView> {
                           .map(
                             (time) => DropdownMenuItem(
                               value: time,
-                              child: Text(time),
+                              child: Text(
+                                time,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           )
                           .toList(),
