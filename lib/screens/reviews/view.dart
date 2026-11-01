@@ -115,19 +115,25 @@ class _ReviewsViewState extends State<ReviewsView> {
                   Obx(
                     () => Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: List.generate(5, (index) {
                         final starValue = index + 1.0;
-                        return IconButton(
-                          icon: Icon(
-                            starValue <= controller.selectedRating.value
-                                ? Icons.star_rounded
-                                : Icons.star_outline_rounded,
-                            color: const Color(0xFFFFB800),
-                            size: 32,
-                          ),
-                          onPressed: () {
+                        return InkWell(
+                          onTap: () {
                             controller.selectedRating.value = starValue;
                           },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4.0, vertical: 4.0),
+                            child: Icon(
+                              starValue <= controller.selectedRating.value
+                                  ? Icons.star_rounded
+                                  : Icons.star_outline_rounded,
+                              color: const Color(0xFFFFB800),
+                              size: 30,
+                            ),
+                          ),
                         );
                       }),
                     ),
@@ -515,36 +521,45 @@ class _ReviewsViewState extends State<ReviewsView> {
             ),
           ),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
             children: [
-              Text(
-                avg.toStringAsFixed(1),
-                style: const TextStyle(
-                  color: Color(0xFF0F3854),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 48,
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Text(
-                '/ 5.0',
-                style: TextStyle(
-                  color: Color(0xFF64748B),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(width: 16),
               Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    avg.toStringAsFixed(1),
+                    style: const TextStyle(
+                      color: Color(0xFF0F3854),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 48,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    '/ 5.0',
+                    style: TextStyle(
+                      color: Color(0xFF64748B),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: List.generate(5, (index) {
                   return Icon(
                     index < avg.floor()
                         ? Icons.star_rounded
-                        : (index < avg ? Icons.star_half_rounded : Icons.star_outline_rounded),
+                        : (index < avg
+                            ? Icons.star_half_rounded
+                            : Icons.star_outline_rounded),
                     color: const Color(0xFFFFB800),
-                    size: 28,
+                    size: 26,
                   );
                 }),
               ),
