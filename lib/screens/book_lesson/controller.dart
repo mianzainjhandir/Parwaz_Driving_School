@@ -22,12 +22,8 @@ class BookLessonController extends GetxController {
     'VIP Custom Course (7 Days)',
   ];
 
-  // Hourly slots from 5:00 AM to 5:00 PM
+  // Hourly slots from 9:00 AM to 5:00 PM
   final List<String> timeSlots = [
-    '5:00 AM - 6:00 AM',
-    '6:00 AM - 7:00 AM',
-    '7:00 AM - 8:00 AM',
-    '8:00 AM - 9:00 AM',
     '9:00 AM - 10:00 AM',
     '10:00 AM - 11:00 AM',
     '11:00 AM - 12:00 PM',
@@ -117,12 +113,12 @@ class BookLessonController extends GetxController {
       },
     );
     if (picked != null) {
-      // Validate time between 5 AM (5) and 5 PM (17)
-      if (picked.hour < 5 || picked.hour > 17) {
+      // Validate time between 9 AM (9) and 5 PM (17)
+      if (picked.hour < 9 || picked.hour > 17) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Please select a time between 5:00 AM and 5:00 PM.'),
+              content: Text('Please select a time between 9:00 AM and 5:00 PM.'),
             ),
           );
         }

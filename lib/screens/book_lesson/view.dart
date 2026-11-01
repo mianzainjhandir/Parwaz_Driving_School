@@ -301,7 +301,7 @@ class _BookLessonViewState extends State<BookLessonView> {
                   const SizedBox(height: 20),
 
                   // Preferred Time
-                  _buildLabel('Preferred Time (5:00 AM - 5:00 PM) *'),
+                  _buildLabel('Preferred Time (9:00 AM - 5:00 PM) *'),
                   Obx(
                     () => DropdownButtonFormField<String>(
                       isExpanded: true,
@@ -332,7 +332,7 @@ class _BookLessonViewState extends State<BookLessonView> {
                             size: 20,
                             color: Color(0xFF556B7A),
                           ),
-                          tooltip: 'Pick custom time between 5 AM & 5 PM',
+                          tooltip: 'Pick custom time between 9 AM & 5 PM',
                           onPressed: () => controller.pickCustomTime(context),
                         ),
                       ),
