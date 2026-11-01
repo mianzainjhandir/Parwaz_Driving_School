@@ -65,6 +65,96 @@ class _ReviewsViewState extends State<ReviewsView> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Google Sign-In Banner inside review form
+                  Obx(() {
+                    final gUser = controller.googleUser.value;
+                    if (gUser != null) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEBF3F8),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 18,
+                              backgroundImage: gUser.photoUrl != null
+                                  ? NetworkImage(gUser.photoUrl!)
+                                  : null,
+                              child: gUser.photoUrl == null
+                                  ? Text(gUser.displayName != null &&
+                                          gUser.displayName!.isNotEmpty
+                                      ? gUser.displayName![0].toUpperCase()
+                                      : 'G')
+                                  : null,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    gUser.displayName ?? 'Google User',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF0F3854),
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  Text(
+                                    gUser.email,
+                                    style: const TextStyle(
+                                      color: Color(0xFF556B7A),
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.logout_rounded,
+                                  size: 18, color: Colors.redAccent),
+                              tooltip: 'Sign out Google',
+                              onPressed: controller.signOutGoogle,
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            onPressed: () => controller.signInWithGoogle(context),
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              side: const BorderSide(color: Color(0xFF0F3854)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            icon: const FaIcon(
+                              FontAwesomeIcons.google,
+                              color: Color(0xFFEA4335),
+                              size: 18,
+                            ),
+                            label: const Text(
+                              'Sign in with Google / Gmail',
+                              style: TextStyle(
+                                color: Color(0xFF0F3854),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  }),
+
                   const Text(
                     'Your Full Name *',
                     style: TextStyle(
@@ -579,6 +669,8 @@ class _ReviewsViewState extends State<ReviewsView> {
   }
 
   Widget _buildReviewCard(ReviewModel review) {
+    final bool hasPhoto = review.photoUrl != null && review.photoUrl!.isNotEmpty;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -605,13 +697,19 @@ class _ReviewsViewState extends State<ReviewsView> {
                   CircleAvatar(
                     radius: 20,
                     backgroundColor: const Color(0xFF0F3854),
-                    child: Text(
-                      review.name.isNotEmpty ? review.name[0].toUpperCase() : 'U',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    backgroundImage: hasPhoto ? NetworkImage(review.photoUrl!) : null,
+                    onBackgroundImageError: hasPhoto ? (_, _) {} : null,
+                    child: !hasPhoto
+                        ? Text(
+                            review.name.isNotEmpty
+                                ? review.name[0].toUpperCase()
+                                : 'U',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : null,
                   ),
                   const SizedBox(width: 12),
                   Column(
@@ -631,7 +729,9 @@ class _ReviewsViewState extends State<ReviewsView> {
                           return Icon(
                             index < review.rating.floor()
                                 ? Icons.star_rounded
-                                : (index < review.rating ? Icons.star_half_rounded : Icons.star_outline_rounded),
+                                : (index < review.rating
+                                    ? Icons.star_half_rounded
+                                    : Icons.star_outline_rounded),
                             color: const Color(0xFFFFB800),
                             size: 16,
                           );

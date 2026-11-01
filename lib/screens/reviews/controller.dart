@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ReviewModel {
   final String id;
@@ -7,6 +8,8 @@ class ReviewModel {
   final double rating;
   final String comment;
   final String date;
+  final String? photoUrl;
+  final String? email;
 
   ReviewModel({
     required this.id,
@@ -14,6 +17,8 @@ class ReviewModel {
     required this.rating,
     required this.comment,
     required this.date,
+    this.photoUrl,
+    this.email,
   });
 }
 
@@ -23,6 +28,9 @@ class ReviewsController extends GetxController {
   final commentController = TextEditingController();
 
   var selectedRating = 5.0.obs;
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  var googleUser = Rxn<GoogleSignInAccount>();
 
   final RxList<ReviewModel> reviewsList = <ReviewModel>[
     ReviewModel(
@@ -78,6 +86,40 @@ class ReviewsController extends GetxController {
     super.onClose();
   }
 
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account != null) {
+        googleUser.value = account;
+        if (account.displayName != null && account.displayName!.isNotEmpty) {
+          nameController.text = account.displayName!;
+        }
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: const Color(0xFF0F3854),
+              content: Text('Signed in as ${account.displayName ?? account.email}'),
+            ),
+          );
+        }
+      }
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Google Sign-In note: $error'),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> signOutGoogle() async {
+    await _googleSignIn.signOut();
+    googleUser.value = null;
+  }
+
   void submitReview(BuildContext context) {
     if (!formKey.currentState!.validate()) {
       return;
@@ -86,7 +128,8 @@ class ReviewsController extends GetxController {
     final String name = nameController.text.trim();
     final String comment = commentController.text.trim();
     final DateTime now = DateTime.now();
-    final String formattedDate = "${now.day} ${_getMonthName(now.month)} ${now.year}";
+    final String formattedDate =
+        "${now.day} ${_getMonthName(now.month)} ${now.year}";
 
     final newReview = ReviewModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -94,6 +137,8 @@ class ReviewsController extends GetxController {
       rating: selectedRating.value,
       comment: comment,
       date: formattedDate,
+      photoUrl: googleUser.value?.photoUrl,
+      email: googleUser.value?.email,
     );
 
     reviewsList.insert(0, newReview);
@@ -107,7 +152,8 @@ class ReviewsController extends GetxController {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Color(0xFF2A4D45),
-          content: Text('Thank you! Your review has been submitted successfully.'),
+          content:
+              Text('Thank you! Your review has been submitted successfully.'),
         ),
       );
     }
