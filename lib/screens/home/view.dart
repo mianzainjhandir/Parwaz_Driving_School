@@ -6,6 +6,7 @@ import 'widgets/hero_section.dart';
 import 'widgets/features_section.dart';
 import 'widgets/courses_section.dart';
 import 'widgets/cta_banner_section.dart';
+import 'widgets/reviews_section.dart';
 import '../about/view.dart';
 import '../courses/view.dart';
 import '../reviews/view.dart';
@@ -254,6 +255,8 @@ class _HomeState extends State<Home> {
             HomeCoursesSection(),
             SizedBox(height: 12),
             CtaBannerSection(),
+            SizedBox(height: 12),
+            HomeReviewsSection(),
             SizedBox(height: 30),
           ],
         ),
