@@ -6,9 +6,8 @@ class LocationPickupSection extends StatelessWidget {
   const LocationPickupSection({super.key});
 
   Future<void> _openGoogleMaps() async {
-    const String query = "Vehari, Punjab, Pakistan";
-    final Uri mapsUrl = Uri.parse(
-        "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(query)}");
+    final Uri mapsUrl =
+        Uri.parse("https://www.google.com/maps/place/Vehari,+Punjab,+Pakistan");
     if (!await launchUrl(mapsUrl, mode: LaunchMode.externalApplication)) {
       // Fallback
     }
@@ -274,49 +273,71 @@ class LocationPickupSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          // Styled Map Representation Card
-          Container(
-            height: 160,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: const Color(0xFFE2ECE9),
+          // Interactive Map Card (Vehari Area Map)
+          GestureDetector(
+            onTap: _openGoogleMaps,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/guide.png'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black26,
-                  BlendMode.darken,
-                ),
-              ),
-            ),
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(15, 56, 84, 0.85),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.location_pin, color: Colors.redAccent, size: 20),
-                    SizedBox(width: 6),
-                    Text(
-                      'Vehari Center Location',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
+              child: Stack(
+                children: [
+                  Image.network(
+                    'https://static-maps.yandex.ru/1.x/?lang=en-US&ll=72.3489,30.0452&z=14&l=map&size=600,280',
+                    height: 180,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 180,
+                        width: double.infinity,
+                        color: const Color(0xFFE2ECE9),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.map_outlined, size: 40, color: Color(0xFF0F3854)),
+                            SizedBox(height: 8),
+                            Text('Vehari, Punjab, Pakistan',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF0F3854))),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Positioned(
+                    bottom: 12,
+                    right: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(15, 56, 84, 0.90),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.location_on_rounded,
+                              color: Colors.redAccent, size: 16),
+                          SizedBox(width: 4),
+                          Text(
+                            'Vehari Area Map',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
           const SizedBox(height: 16),
-          // Get Directions Button
+          // View Map Button
           SizedBox(
             width: double.infinity,
             height: 48,
@@ -330,9 +351,9 @@ class LocationPickupSection extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              icon: const Icon(Icons.near_me_outlined, size: 20),
+              icon: const Icon(Icons.map_outlined, size: 20),
               label: const Text(
-                'Get Directions on Google Maps',
+                'Open Vehari Area on Google Maps',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
