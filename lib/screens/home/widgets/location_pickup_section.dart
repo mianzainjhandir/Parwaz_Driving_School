@@ -53,9 +53,9 @@ class LocationPickupSection extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1100),
           decoration: BoxDecoration(
-            color: const Color(0xFFF8FAF9),
+            color: const Color(0xFFF0F8F5),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFFE2ECE9)),
+            border: Border.all(color: const Color(0xFFD0E5DE)),
           ),
           padding: EdgeInsets.all(isMobile ? 20 : 32),
           child: isMobile

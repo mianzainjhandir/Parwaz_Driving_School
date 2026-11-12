@@ -32,17 +32,18 @@ class FeaturesSection extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1200),
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F5F4),
+            color: const Color(0xFFFDF0F4),
             borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0xFFF3D9E2)),
           ),
           padding: EdgeInsets.all(isMobile ? 20 : 24),
           child: isMobile
               ? Column(
                   children: [
                     _buildFeatureItem(features[0]),
-                    const Divider(height: 28, color: Color(0xFFD5E0DC)),
+                    const Divider(height: 28, color: Color(0xFFE8C2CE)),
                     _buildFeatureItem(features[1]),
-                    const Divider(height: 28, color: Color(0xFFD5E0DC)),
+                    const Divider(height: 28, color: Color(0xFFE8C2CE)),
                     _buildFeatureItem(features[2]),
                   ],
                 )
@@ -52,14 +53,14 @@ class FeaturesSection extends StatelessWidget {
                     Container(
                       height: 48,
                       width: 1,
-                      color: const Color(0xFFD5E0DC),
+                      color: const Color(0xFFE8C2CE),
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                     Expanded(child: _buildFeatureItem(features[1])),
                     Container(
                       height: 48,
                       width: 1,
-                      color: const Color(0xFFD5E0DC),
+                      color: const Color(0xFFE8C2CE),
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                     Expanded(child: _buildFeatureItem(features[2])),
@@ -76,7 +77,7 @@ class FeaturesSection extends StatelessWidget {
         Icon(
           feature.icon,
           size: 32,
-          color: const Color(0xFF2A4D45),
+          color: const Color(0xFF7A2E44),
         ),
         const SizedBox(width: 14),
         Expanded(

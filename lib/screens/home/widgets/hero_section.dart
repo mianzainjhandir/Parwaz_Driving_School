@@ -21,7 +21,7 @@ class HeroSection extends StatelessWidget {
 
     if (isMobile) {
       return Container(
-        color: const Color(0xFFF8FAF9),
+        color: const Color(0xFFEFF5F9),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +130,7 @@ class HeroSection extends StatelessWidget {
     // Desktop view
     return Container(
       width: double.infinity,
-      color: const Color(0xFFF8FAF9),
+      color: const Color(0xFFEFF5F9),
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1200, minHeight: 480),
@@ -144,16 +144,16 @@ class HeroSection extends StatelessWidget {
                   alignment: Alignment.centerRight,
                 ),
               ),
-              // Left side content with soft white gradient
+              // Left side content with soft ice blue gradient
               Positioned.fill(
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFFF8FAF9),
-                        Color(0xFFF8FAF9),
-                        Color(0xEEF8FAF9),
-                        Color(0xAAF8FAF9),
+                        Color(0xFFEFF5F9),
+                        Color(0xFFEFF5F9),
+                        Color(0xEEEFF5F9),
+                        Color(0xAAEFF5F9),
                         Colors.transparent,
                       ],
                       stops: [0.0, 0.35, 0.50, 0.65, 0.85],

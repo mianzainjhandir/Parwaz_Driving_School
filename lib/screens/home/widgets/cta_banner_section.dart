@@ -23,9 +23,9 @@ class CtaBannerSection extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1100),
           decoration: BoxDecoration(
-            color: const Color(0xFFF8FAF9),
+            color: const Color(0xFFEBF3F9),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFFE2ECE9)),
+            border: Border.all(color: const Color(0xFFD2E4F2)),
           ),
           padding: EdgeInsets.all(isMobile ? 20 : 28),
           child: isMobile
