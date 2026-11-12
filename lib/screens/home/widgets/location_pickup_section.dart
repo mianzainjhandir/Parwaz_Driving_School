@@ -165,16 +165,18 @@ class LocationPickupSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.directions_car_outlined, color: Color(0xFF0F3854), size: 22),
-              SizedBox(width: 8),
-              Text(
-                'Covered Service Areas in Vehari:',
-                style: TextStyle(
-                  color: Color(0xFF0F3854),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+              const Icon(Icons.directions_car_outlined, color: Color(0xFF0F3854), size: 22),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Covered Service Areas in Vehari:',
+                  style: TextStyle(
+                    color: Color(0xFF0F3854),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ],
@@ -250,25 +252,27 @@ class LocationPickupSection extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Parwaaz Driving Institute',
-                    style: TextStyle(
-                      color: Color(0xFF0F3854),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Parwaaz Driving Institute',
+                      style: TextStyle(
+                        color: Color(0xFF0F3854),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Vehari, Punjab, Pakistan',
-                    style: TextStyle(
-                      color: Color(0xFF64748B),
-                      fontSize: 13,
+                    Text(
+                      'Vehari, Punjab, Pakistan',
+                      style: TextStyle(
+                        color: Color(0xFF64748B),
+                        fontSize: 13,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
